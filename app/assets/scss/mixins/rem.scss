@@ -1,0 +1,15 @@
+@use 'sass:math';
+
+// Базовое значение для функции rem(). Если меняешь корневой font-size — синхронизируй здесь.
+$base-value: 16 !default;
+
+// Перевод px → rem. Использовать так: padding: rem(24);
+@function rem($size) {
+  @return #{math.div($size, $base-value)}rem;
+}
+
+// rem с учётом масштабной CSS-переменной --map-scale (нужна для пиксель-перфекта на нестандартных вьюпортах).
+// Сама переменная объявляется в base/scale-html.scss.
+@function rem-map($size) {
+  @return calc(#{math.div($size, $base-value)}rem * var(--map-scale));
+}

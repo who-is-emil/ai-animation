@@ -1,0 +1,20 @@
+.error-layout {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+
+  &__header {
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  &__menu {
+    position: relative;
+    z-index: 99;
+  }
+}

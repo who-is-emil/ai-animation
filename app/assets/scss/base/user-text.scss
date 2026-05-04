@@ -1,0 +1,327 @@
+@use '../abstracts' as *;
+
+.user-text {
+  $root: &;
+
+  --user-text-color: var(--text);
+  color: var(--user-text-color);
+
+  > p {
+    margin-top: rem(16);
+    margin-bottom: rem(16);
+
+    @include media-breakpoint-up(md) {
+      margin-top: rem(24);
+      margin-bottom: rem(24);
+    }
+
+    &:has(img) {
+      margin-top: rem(32);
+      margin-bottom: rem(32);
+      border-radius: rem(16);
+      overflow: hidden;
+
+      @include media-between(md, lg) {
+        margin-top: rem(48);
+        margin-bottom: rem(48);
+      }
+
+      @include media-breakpoint-up(xl) {
+        margin-top: rem(56);
+        margin-bottom: rem(56);
+      }
+
+      img {
+        max-width: 100%;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  > h1 {
+    margin-top: rem(24);
+    margin-bottom: rem(24);
+
+    @include media-breakpoint-up(md) {
+      margin-top: rem(32);
+      margin-bottom: rem(32);
+    }
+
+    @include media-breakpoint-up(xl) {
+      margin-top: rem(40);
+      margin-bottom: rem(40);
+    }
+  }
+
+  > h2,
+  > h3 {
+    margin-top: rem(16);
+    margin-bottom: rem(16);
+
+    @include media-breakpoint-up(md) {
+      margin-top: rem(24);
+      margin-bottom: rem(24);
+    }
+
+    @include media-breakpoint-up(xl) {
+      margin-top: rem(32);
+      margin-bottom: rem(32);
+    }
+  }
+
+  > h4 {
+    margin-top: rem(16);
+    margin-bottom: rem(16);
+
+    @include media-breakpoint-up(xl) {
+      margin-top: rem(24);
+      margin-bottom: rem(24);
+    }
+
+    + ul,
+    + ol {
+      margin-top: rem(16);
+
+      @include media-breakpoint-up(xl) {
+        margin-top: rem(24);
+      }
+    }
+  }
+
+  > h5 {
+    margin-top: rem(8);
+    margin-bottom: rem(8);
+
+    @include media-breakpoint-up(xl) {
+      margin-top: rem(24);
+      margin-bottom: rem(24);
+    }
+    @include media-between(md, lg) {
+      margin-top: rem(16);
+      margin-bottom: rem(16);
+    }
+  }
+
+  > .text-lead {
+    margin-top: rem(24);
+    margin-bottom: rem(24);
+
+    @include media-breakpoint-up(xl) {
+      margin-top: rem(40);
+      margin-bottom: rem(40);
+    }
+    @include media-between(md, lg) {
+      margin-top: rem(32);
+      margin-bottom: rem(32);
+    }
+  }
+
+  > ul {
+    margin-top: rem(16);
+    margin-bottom: rem(16);
+    list-style: none;
+
+    @include media-breakpoint-up(md) {
+      margin-top: rem(24);
+      margin-bottom: rem(24);
+    }
+
+    li {
+      position: relative;
+      padding-left: rem(16);
+
+      @include media-breakpoint-up(xl) {
+        padding-left: rem(24);
+      }
+
+      &:not(:last-child) {
+        margin-bottom: rem(4);
+      }
+
+      &:before {
+        position: absolute;
+        content: '• ';
+        left: 0;
+        top: 0;
+        @include typography(body);
+      }
+    }
+  }
+
+  > ol {
+    list-style-type: none;
+    counter-reset: item;
+    margin-top: rem(16);
+    margin-bottom: rem(16);
+
+    @include media-breakpoint-up(md) {
+      margin-top: rem(24);
+      margin-bottom: rem(24);
+    }
+
+    li {
+      position: relative;
+      counter-increment: item;
+      padding-left: rem(24);
+
+      &:not(:last-child) {
+        margin-bottom: rem(4);
+      }
+
+      &:before {
+        position: absolute;
+        top: rem(0);
+        left: 0;
+        width: rem(20);
+        color: var(--accent);
+        content: counter(item) '.';
+      }
+    }
+  }
+
+  a {
+    color: currentColor;
+
+    @include line-animate-out(currentColor);
+  }
+
+  figure.table-wrap {
+    padding: 0 rem(8);
+
+    &:deep([data-overlayscrollbars]) {
+      padding: 0 rem(8);
+    }
+    &:has(.os-scrollbar-horizontal.os-scrollbar-visible) {
+      &:deep([data-overlayscrollbars]) {
+        padding-bottom: rem(12);
+
+        @include media-breakpoint-up(md) {
+          padding-bottom: rem(20);
+        }
+      }
+    }
+  }
+
+  table {
+    width: 100%;
+    background-color: var(--white-1);
+    border-radius: rem(16);
+    overflow: hidden;
+
+    td {
+      min-width: rem(104);
+      max-width: rem(136);
+
+      @include media-breakpoint-up(md) {
+        min-width: rem(128);
+        max-width: rem(360);
+      }
+
+      @include media-breakpoint-up(xl) {
+        min-width: rem(160);
+        max-width: rem(480);
+      }
+
+      &:nth-child(2) {
+        min-width: rem(120);
+        @include media-breakpoint-up(md) {
+          min-width: rem(160);
+        }
+        @include media-breakpoint-up(xl) {
+          min-width: rem(180);
+        }
+      }
+
+      &:nth-child(n + 3) {
+        min-width: rem(200);
+        @include media-breakpoint-up(md) {
+          min-width: rem(250);
+        }
+        @include media-breakpoint-up(xl) {
+          min-width: rem(280);
+        }
+      }
+
+      position: relative;
+      padding: rem(16) rem(24) rem(36);
+      color: var(--text);
+      @include typography(body);
+
+      @include media-between(md, lg) {
+        padding: rem(16) rem(32) rem(16);
+      }
+
+      @include media-breakpoint-up(xl) {
+        padding: rem(16) rem(56) rem(16);
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background-color: var(--white-1-50);
+      }
+
+      &:first-child {
+        padding-left: rem(16);
+        &::after {
+          left: rem(16);
+        }
+        @include media-breakpoint-up(xl) {
+          padding-left: rem(24);
+          &::after {
+            left: rem(24);
+          }
+        }
+      }
+
+      &:last-child {
+        padding-right: rem(16);
+        &::after {
+          right: rem(16);
+        }
+        @include media-breakpoint-up(xl) {
+          padding-right: rem(24);
+          &::after {
+            right: rem(24);
+          }
+        }
+      }
+    }
+
+    // Стили для первой строки как заголовка
+    tr:first-child td {
+      color: var(--text-muted);
+      padding-top: rem(16);
+      padding-bottom: rem(36);
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background-color: var(--white-1-50);
+      }
+    }
+
+    tr:last-child td::after {
+      content: none;
+    }
+  }
+
+  > :first-child {
+    margin-top: 0;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}

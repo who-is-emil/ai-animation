@@ -1,0 +1,77 @@
+@use '../abstracts' as *;
+
+// CSS-переменные типографики. На них опирается миксин typography($type) из mixins/typography.scss.
+//
+// Шаблон именования (важно для работы миксина):
+//   --font-size-{type}-{breakpoint}      ← обязательно
+//   --line-height-{type}-{breakpoint}    ← обязательно
+//   --letter-spacing-{type}-{breakpoint} ← обязательно
+//   --font-weight-{type}                 ← обязательно
+//   --text-transform-{type}              ← обязательно
+//
+// breakpoint: xl (≥md), lg (≥md и <xl), sm (<md). См. mixins/typography.scss
+// type: любое имя (h1, body, lead, hero — что угодно). Чтобы добавить новый тип,
+// объяви все 5 переменных тут и используй @include typography(имя).
+//
+// Минимальный набор: h1-h3, body. Расширяй под дизайн-сет проекта,
+// но не плоди типы «на всякий случай» — добавляй то, что реально применяется.
+:root {
+  // Шрифт. @nuxt/fonts автоматически подхватит, если положишь файлы в public/fonts или assets/fonts.
+  --font-family-base: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+
+  // h1
+  --font-size-h1-xl: #{rem(64)};
+  --font-size-h1-lg: #{rem(48)};
+  --font-size-h1-sm: #{rem(32)};
+  --line-height-h1-xl: 1;
+  --line-height-h1-lg: 1;
+  --line-height-h1-sm: 1;
+  --letter-spacing-h1-xl: -0.02em;
+  --letter-spacing-h1-lg: -0.02em;
+  --letter-spacing-h1-sm: -0.02em;
+  --font-weight-h1: var(--font-weight-medium);
+  --text-transform-h1: none;
+
+  // h2
+  --font-size-h2-xl: #{rem(48)};
+  --font-size-h2-lg: #{rem(40)};
+  --font-size-h2-sm: #{rem(30)};
+  --line-height-h2-xl: 1.05;
+  --line-height-h2-lg: 1.05;
+  --line-height-h2-sm: 1.05;
+  --letter-spacing-h2-xl: -0.02em;
+  --letter-spacing-h2-lg: -0.02em;
+  --letter-spacing-h2-sm: -0.02em;
+  --font-weight-h2: var(--font-weight-medium);
+  --text-transform-h2: none;
+
+  // h3
+  --font-size-h3-xl: #{rem(36)};
+  --font-size-h3-lg: #{rem(28)};
+  --font-size-h3-sm: #{rem(20)};
+  --line-height-h3-xl: 1.1;
+  --line-height-h3-lg: 1.1;
+  --line-height-h3-sm: 1.1;
+  --letter-spacing-h3-xl: -0.02em;
+  --letter-spacing-h3-lg: -0.02em;
+  --letter-spacing-h3-sm: -0.02em;
+  --font-weight-h3: var(--font-weight-medium);
+  --text-transform-h3: none;
+
+  // body
+  --font-size-body-xl: #{rem(20)};
+  --font-size-body-lg: #{rem(16)};
+  --font-size-body-sm: #{rem(14)};
+  --line-height-body-xl: 1.4;
+  --line-height-body-lg: 1.4;
+  --line-height-body-sm: 1.4;
+  --letter-spacing-body-xl: 0;
+  --letter-spacing-body-lg: 0;
+  --letter-spacing-body-sm: 0;
+  --font-weight-body: var(--font-weight-regular);
+  --text-transform-body: none;
+}

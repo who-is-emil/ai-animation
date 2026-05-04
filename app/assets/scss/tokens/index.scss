@@ -1,0 +1,8 @@
+// CSS-переменные (динамические токены).
+// primitives — палитра без семантики; base — семантические дефолты (--bg, --color);
+// shadow, typography, container — функциональные группы. Подключаются один раз через main.scss.
+@forward 'primitives';
+@forward 'base';
+@forward 'shadow';
+@forward 'typography';
+@forward 'container';

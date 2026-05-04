@@ -1,0 +1,108 @@
+@use 'sass:list';
+@use 'sass:map';
+@use '../vars/grid' as *;
+
+// Утилиты для работы с брейкпоинтами. По умолчанию работают с $grid-breakpoints из vars/grid.scss.
+// Можно передать свой набор брейкпоинтов вторым аргументом.
+
+@function breakpoint-next($name, $breakpoints: $grid-breakpoints, $breakpoint-names: map.keys($breakpoints)) {
+  $n: list.index($breakpoint-names, $name);
+
+  @if $n < list.length($breakpoint-names) {
+    @return list.nth($breakpoint-names, $n + 1);
+  }
+  @return null;
+}
+
+// Минимальная ширина брейкпоинта. Null для самого маленького (первого).
+@function breakpoint-min($name, $breakpoints: $grid-breakpoints) {
+  $min: map.get($breakpoints, $name);
+
+  @if $min != 0 {
+    @return $min;
+  }
+  @return null;
+}
+
+// Максимальная ширина брейкпоинта. Считается как (минимум следующего - 0.02px),
+// чтобы корректно работать с min-/max- префиксами и дробными viewport.
+@function breakpoint-max($name, $breakpoints: $grid-breakpoints) {
+  $next: breakpoint-next($name, $breakpoints);
+
+  @if $next {
+    @return breakpoint-min($next, $breakpoints) - 0.02px;
+  }
+  @return null;
+}
+
+// Возвращает имя брейкпоинта с дефисом для адаптивных классов (sm → '', md → '-md').
+@function breakpoint-infix($name, $breakpoints: $grid-breakpoints) {
+  @if breakpoint-min($name, $breakpoints) == null {
+    @return '';
+  }
+  @return '-#{$name}';
+}
+
+// От минимальной ширины брейкпоинта и шире
+@mixin media-breakpoint-up($name, $breakpoints: $grid-breakpoints) {
+  $min: breakpoint-min($name, $breakpoints);
+
+  @if $min {
+    @media (min-width: $min) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+// До максимальной ширины брейкпоинта и уже
+@mixin media-breakpoint-down($name, $breakpoints: $grid-breakpoints) {
+  $max: breakpoint-max($name, $breakpoints);
+
+  @if $max {
+    @media (max-width: $max) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+// Только в пределах одного брейкпоинта
+@mixin media-breakpoint-only($name, $breakpoints: $grid-breakpoints) {
+  $min: breakpoint-min($name, $breakpoints);
+  $max: breakpoint-max($name, $breakpoints);
+
+  @if $min != null and $max != null {
+    @media (min-width: $min) and (max-width: $max) {
+      @content;
+    }
+  } @else if $max == null {
+    @include media-breakpoint-up($name, $breakpoints) {
+      @content;
+    }
+  } @else if $min == null {
+    @include media-breakpoint-down($name, $breakpoints) {
+      @content;
+    }
+  }
+}
+
+// Произвольный диапазон между двумя брейкпоинтами
+@mixin media-between($lower, $upper, $breakpoints: $grid-breakpoints) {
+  $min: breakpoint-min($lower, $breakpoints);
+  $max: breakpoint-max($upper, $breakpoints);
+
+  @if $min != null and $max != null {
+    @if $min > $max {
+      @warn "Некорректный порядок: $lower ($min) больше $upper ($max).";
+    } @else {
+      @media (min-width: $min) and (max-width: $max) {
+        @content;
+      }
+    }
+  } @else {
+    @warn "Невозможно применить диапазон: проверь $lower и $upper в $breakpoints.";
+  }
+}

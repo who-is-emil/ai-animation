@@ -1,0 +1,20 @@
+// Точка входа для глобально-доступных переменных, функций и миксинов.
+// Подключается через nuxt.config.ts → vite.css.preprocessorOptions.scss.additionalData
+// и инжектится в каждый SCSS-файл и <style lang="scss"> в SFC.
+//
+// ВАЖНО: здесь должны быть только декларации БЕЗ CSS-вывода.
+// CSS-правила (классы, :root, @keyframes) живут в base/, tokens/, layouts/, utils/
+// и подключаются один раз через main.scss.
+
+// Vars (переменные Sass — для @media, calc, map'ов)
+@forward 'vars/grid';
+@forward 'vars/spacing';
+@forward 'vars/animations';
+@forward 'vars/icons';
+
+// Mixins и функции
+@forward 'mixins/rem';
+@forward 'mixins/breakpoints';
+@forward 'mixins/typography';
+@forward 'mixins/container';
+@forward 'mixins/helpers';

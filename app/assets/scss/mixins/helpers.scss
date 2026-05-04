@@ -1,0 +1,105 @@
+@use '../vars/animations' as *;
+
+// Стили для элементов в последнем ряду CSS-grid (без последней строки).
+// $count — максимальное число элементов в ряду.
+@mixin last-row($count) {
+  &:nth-child(#{$count}n + 1):nth-last-child(-n + #{$count}),
+  &:nth-child(#{$count}n + 1):nth-last-child(-n + #{$count}) ~ & {
+    @content;
+  }
+}
+
+@mixin last-row-with-item($count, $item) {
+  &:nth-child(#{$count}n + 1):nth-last-child(-n + #{$count}),
+  &:nth-child(#{$count}n + 1):nth-last-child(-n + #{$count}) ~ #{$item} {
+    @content;
+  }
+}
+
+// Hover только для устройств с курсором (не срабатывает на тачах)
+@mixin hover {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+@mixin touch-device {
+  @media (hover: none) and (pointer: coarse) {
+    @content;
+  }
+}
+
+@mixin not-touch-device {
+  @media (hover: hover) and (pointer: fine) {
+    @content;
+  }
+}
+
+// Подчёркивание-«линия» с анимацией появления при ховере
+@mixin line-animate-in($color: currentColor) {
+  background-size: 0 1px;
+  background-position: 100% 100%;
+  background-image: linear-gradient($color, $color);
+  background-repeat: no-repeat;
+  text-decoration: none !important;
+  transition-property: background-size, color;
+  transition-duration: $timing;
+  transition-timing-function: $easing;
+  will-change: background-size;
+
+  @include hover {
+    background-position: 0 100%;
+    background-size: 100% 1px;
+  }
+}
+
+// Та же линия, но при ховере исчезает
+@mixin line-animate-out($color: currentColor) {
+  background-size: 100% 1px;
+  background-position: 0 100%;
+  background-image: linear-gradient($color, $color);
+  background-repeat: no-repeat;
+  text-decoration: none !important;
+  transition-property: background-size, color;
+  transition-duration: $timing;
+  transition-timing-function: $easing;
+  will-change: background-size;
+
+  @include hover {
+    background-position: 100% 100%;
+    background-size: 0 1px;
+  }
+}
+
+@mixin default-transition($args...) {
+  transition-timing-function: $easing;
+  transition-duration: $timing;
+  transition-property: $args;
+}
+
+// Многострочное многоточие
+@mixin line-clamp($font-size, $line-height, $lines-to-show) {
+  display: block;
+  display: -webkit-box;
+  font-size: $font-size;
+  max-height: calc(#{$font-size} * #{$line-height} * #{$lines-to-show});
+  line-height: $line-height;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $lines-to-show;
+}
+
+// Скрытие элемента визуально, но не для скринридеров
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}

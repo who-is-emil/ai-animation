@@ -1,0 +1,13 @@
+@use 'breakpoints' as *;
+
+// Базовый container с горизонтальными отступами на основе CSS-переменных из tokens/container.scss
+@mixin container {
+  width: 100%;
+  padding-left: var(--container-left-sm);
+  padding-right: var(--container-right-sm);
+
+  @include media-breakpoint-up(md) {
+    padding-left: var(--container-left);
+    padding-right: var(--container-right);
+  }
+}

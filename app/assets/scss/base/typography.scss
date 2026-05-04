@@ -1,0 +1,38 @@
+@use '../abstracts' as *;
+
+html {
+  font-family: var(--font-family-base);
+  font-style: normal;
+}
+
+body {
+  @include typography(body);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+h1,
+.h1 {
+  @include typography(h1);
+}
+
+h2,
+.h2 {
+  @include typography(h2);
+}
+
+h3,
+.h3 {
+  @include typography(h3);
+}
+
+.text-body {
+  @include typography(body);
+}

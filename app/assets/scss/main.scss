@@ -1,0 +1,10 @@
+// Главная точка входа для глобальных стилей. Подключается через nuxt.config.ts → css.
+// Порядок важен:
+// 1. tokens  — CSS-переменные (должны быть объявлены до использования в base/layouts)
+// 2. base    — глобальные стили (reset, типографика, body)
+// 3. utils   — утилитарные классы (visually-hidden, spacing-классы)
+// 4. layouts — стили лейаутов
+@use 'tokens';
+@use 'base';
+@use 'utils';
+@use 'layouts';

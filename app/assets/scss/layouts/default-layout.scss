@@ -1,0 +1,53 @@
+@use '../abstracts' as *;
+
+.default-layout {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  &--offset {
+    padding-top: rem(64);
+
+    @include media-breakpoint-up(xl) {
+      padding-top: rem(112);
+    }
+    @include media-breakpoint-only(lg) {
+      padding-top: rem(88);
+    }
+    @include media-breakpoint-only(md) {
+      padding-top: rem(80);
+    }
+  }
+
+  &__menu {
+    position: relative;
+    z-index: 99;
+  }
+
+  &__header {
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    &:has(.header.has-transition) {
+      @include default-transition(transform);
+    }
+
+    &:has(.header.is-fixed) {
+      position: fixed;
+      transform: translateY(-100%);
+    }
+
+    &:has(.header.is-fixed.is-showed) {
+      transform: translateY(0);
+    }
+  }
+
+  &__footer {
+    position: relative;
+    margin-top: auto;
+  }
+}

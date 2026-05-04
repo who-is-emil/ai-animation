@@ -1,0 +1,50 @@
+@use '../abstracts' as *;
+
+// Vue transition: fade
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+// Скролл-анимации. Запускаются плагином app/plugins/animate.client.js через IntersectionObserver.
+// Класс html.js ставится синхронно inline-скриптом из nuxt.config.ts → no FOUC.
+// Без класса html.js (например, при отключённом JS) элементы остаются видимыми.
+//
+// Использование:
+//   <div data-animate="fade-in-up">...</div>
+//   <div data-animate="fade" style="--animate-delay: 0.3s">...</div>
+//
+// Чтобы добавить новый тип — добавь блок [data-animate='my-type'] с начальным состоянием
+// и допиши целевое состояние в [data-animate].animate.
+html.js {
+  [data-animate] {
+    transition-delay: var(--animate-delay, 0s);
+  }
+
+  [data-animate='fade-in-up'] {
+    opacity: 0;
+    transform: translateY(rem(16));
+    transition-property: transform, opacity;
+    transition-duration: 0.7s;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform, opacity;
+  }
+
+  [data-animate='fade'] {
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 0.7s;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity;
+  }
+
+  [data-animate].animate {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

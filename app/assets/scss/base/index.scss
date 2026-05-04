@@ -1,0 +1,8 @@
+// Глобальные базовые стили (порядок важен: reset → scale → типографика → остальное)
+@forward 'reboot';
+@forward 'scale-html';
+@forward 'typography';
+@forward 'container';
+@forward 'user-text';
+@forward 'main';
+@forward 'animation';

@@ -1,0 +1,8 @@
+@use '../abstracts' as *;
+
+:root {
+  --container-left: #{rem(32)};
+  --container-right: #{rem(32)};
+  --container-left-sm: #{rem(24)};
+  --container-right-sm: #{rem(24)};
+}

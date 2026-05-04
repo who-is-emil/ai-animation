@@ -1,0 +1,26 @@
+@use 'breakpoints' as *;
+
+// Применяет набор CSS-переменных типографики для указанного типа.
+// Тип — это префикс CSS-переменных в tokens/typography.scss (display, h1, body и т.д.).
+// Пример: @include typography(h1);
+@mixin typography($type) {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-#{$type});
+  text-transform: var(--text-transform-#{$type});
+
+  @include media-breakpoint-up(xl) {
+    font-size: var(--font-size-#{$type}-xl);
+    line-height: var(--line-height-#{$type}-xl);
+    letter-spacing: var(--letter-spacing-#{$type}-xl);
+  }
+  @include media-between(md, lg) {
+    font-size: var(--font-size-#{$type}-lg);
+    line-height: var(--line-height-#{$type}-lg);
+    letter-spacing: var(--letter-spacing-#{$type}-lg);
+  }
+  @include media-breakpoint-down(sm) {
+    font-size: var(--font-size-#{$type}-sm);
+    line-height: var(--line-height-#{$type}-sm);
+    letter-spacing: var(--letter-spacing-#{$type}-sm);
+  }
+}
