@@ -75,8 +75,6 @@ export default defineNuxtConfig({
   },
 
   nitro: {
-    preset: 'netlify',
-    output: { dir: 'dist' },
     routeRules: {
       // Долгий кеш для иммутабельных ассетов
       '/_nuxt/**': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
